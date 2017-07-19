@@ -233,7 +233,7 @@ public ResponseEntity<?> deletePoll(@PathVariable Long pollId) {
 -
 # Part 3.1.8 - Test
 * Restart the QuickPoll application.
-* Use Postman to execute a `PUT` to `http://localhost:8080/polls/1` whose request body is the `JSON` file below.
+* Use Postman to execute a `PUT` to `http://localhost:8080/polls/1` whose request body is the `JSON` object below.
 * You can modify the request body in Postman by navigating to the `Body` tab, selecting the `raw` radio button, and selecting the `JSON` option from the text format dropdown.
 
 ```JSON
@@ -266,7 +266,7 @@ public class VoteController {
     public ResponseEntity<?> createVote(@PathVariable Long pollId, @RequestBody Vote
             vote) {
         vote = voteRepository.save(vote);
-// Set the headers for the newly created resource
+        // Set the headers for the newly created resource
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.setLocation(ServletUriComponentsBuilder.
                 fromCurrentRequest().path("/{id}").buildAndExpand(vote.getId()).toUri());
