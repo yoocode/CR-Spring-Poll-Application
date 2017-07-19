@@ -279,6 +279,13 @@ public class VoteController {
 * To test the voting capabilities, `POST` a new Vote to the `/polls/1/votes` endpoint with the option object expressed in `JSON` below.
 * On successful request execution, you will see a Location response header with value http://localhost:8080/polls/1/votes/1.
 
+```JSON
+{
+    "option": { "id": 1, "value": "Black Mirror" }
+}
+```
+
+
 
 
 -
