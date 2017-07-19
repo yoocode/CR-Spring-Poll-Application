@@ -233,8 +233,8 @@ public ResponseEntity<?> deletePoll(@PathVariable Long pollId) {
 -
 # Part 3.1.8 - Test
 * Restart the QuickPoll application.
-* Ensure a JSON file with a `status` of `200` is returned by executing a `PUT` request of `http://localhost:8080/polls/1` via Postman
-execute a `PUT` request of
+* Use Postman to execute a `PUT` to `http://localhost:8080/polls/1` whose request body is the `JSON` file below.
+* You can modify the request body in Postman by navigating to the `Body` tab, selecting the `raw` radio button, and selecting the `JSON` option from the text format dropdown.
 
 ```JSON
 {
