@@ -1,3 +1,5 @@
+
+
 # Part 1 - Domain Implementation<br>
 * _Domain objects_ are the backbone for an application and contain the [business logic](https://en.wikipedia.org/wiki/Business_logic).
 * Create a sub package of `java` named `domain`.
@@ -232,7 +234,20 @@ public ResponseEntity<?> deletePoll(@PathVariable Long pollId) {
 # Part 3.1.8 - Test
 * Restart the QuickPoll application.
 * Ensure a JSON file with a `status` of `200` is returned by executing a `PUT` request of `http://localhost:8080/polls/1` via Postman
+execute a `PUT` request of
 
+```JSON
+{
+    "id": 1,
+        "question": "What's the best netflix original?",
+        "options": [
+	    { "id": 1, "value": "Black Mirror" },
+	    { "id": 2, "value": "Stranger Things" },
+	    { "id": 3, "value": "Orange is the New Black"},
+	    { "id": 4, "value": "The Get Down" }
+	]
+}
+```
 
 
 -
@@ -260,11 +275,14 @@ public class VoteController {
 }
 ```
 
+# Part 3.2.1 - Testing `VoteController`
+* To test the voting capabilities, `POST` a new Vote to the `/polls/1/votes` endpoint with the option object expressed in `JSON` below.
+* On successful request execution, you will see a Location response header with value http://localhost:8080/polls/1/votes/1.
 
 
 
 -
-# Part 3.2.1 - Modify `VoteRepository`
+# Part 3.2.2 - Modify `VoteRepository`
 * The method `findAll` in the `VoteRepository` retrieves all votes in a Database rather than a given poll.
 * To ensure we can get votes for a given poll, we must add the code below to our `VoteRepository`.
 
@@ -288,7 +306,7 @@ public interface VoteRepository extends CrudRepository<Vote, Long> {
 
 
 -
-# Part 3.2.2 - Modify `VoteController`
+# Part 3.2.3 - Modify `VoteController`
 * Create a `getAllVotes` method in the `VoteController`
 
 
