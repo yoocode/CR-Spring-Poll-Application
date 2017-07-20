@@ -85,12 +85,12 @@
 -
 # Part 2.2 - Create interface `PollRepository`
 * Create a `PollRepository` interface in the `repositories` subpackage.
-* `PollRepository` extends `CrudRepository<Option, Long>`
+* `PollRepository` extends `CrudRepository<Poll, Long>`
 
 -
 # Part 2.3 - Create interface `VoteRepository`
 * Create a `VoteRepository` interface in the `repositories` subpackage.
-* `VoteRepository` extends `CrudRepository<Option, Long>`
+* `VoteRepository` extends `CrudRepository<Vote, Long>`
 
 
 
