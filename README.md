@@ -61,7 +61,8 @@
 
 * `Vote` has a `option` instance variable of type `Option`
 	* `option` should be `annotated` with
-		* `@Column(name = "OPTION_ID")`
+		* `@ManyToOne`
+		* `@JoinColumn(name = "OPTION_ID")`
 
 * Create a `getter` and `setter` for each of the respective instance variables.
 
