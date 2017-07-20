@@ -2,7 +2,7 @@
 
 # Part 1 - Domain Implementation<br>
 * _Domain objects_ are the backbone for an application and contain the [business logic](https://en.wikipedia.org/wiki/Business_logic).
-* Create a sub package of `java` named `domain`.
+* Create a sub package of `io.zipcoder.tc_spring_poll_application` named `domain`.
 
 
 -
@@ -74,7 +74,7 @@
 * _Repositories_ or [Data Access Objects (DAO)](https://en.wikipedia.org/wiki/Data_access_object), provide an abstraction for interacting with _datastores_.
 * Typically DAOs include an interface that provides a set of finder methods such as `findById`, `findAll`, for retrieving data, and methods to persist and delete data.
 * It is customary to have one `Repository` per `domain` object.
-* Create a sub-package of `java` named `repositories`.
+* Create a sub-package of `io.zipcoder.tc_spring_poll_application` named `repositories`.
 
 
 -
@@ -102,7 +102,7 @@
 # Part 3 - Controller Implementation
 * _Controllers_ provides all of the necessary [endpoints](https://en.wikipedia.org/wiki/Web_API#Endpoints) to access and manipulate respective domain objects.
 	*  REST resources are identified using URI endpoints.
-* Create a sub package of `java` named `controller`.
+* Create a sub package of `io.zipcoder.tc_spring_poll_application` named `controller`.
 
 
 -
