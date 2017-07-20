@@ -8,7 +8,7 @@
 -
 # Part 1.1 - Create class `Option`
 * Create an `Option` class in the `domain` sub-package.
-
+* `Option` class signature is annotated with `@Entity`
 * `Option` has an `id` instance variable of type `Long`
 	* `id` should be `annotated` with
 		* `@Id`
@@ -28,7 +28,7 @@
 -
 # Part 1.2 - Create class `Poll`
 * Create a `Poll` class in the `domain` sub-package.
-
+* `Poll` class signature is annotated with `@Entity`
 * `Poll` has an `id` instance variable of type `Long`
 	* `id` should be `annotated` with
 		* `@Id`
@@ -52,7 +52,7 @@
 -
 # Part 1.3 - Create class `Vote`
 * Create a `Vote` class in the `domain` sub-package.
-
+* `Vote` class signature is annotated with `@Entity`
 * `Vote` has an `id` instance variable of type `Long`
 	* `id` should be `annotated` with
 		* `@Id`
