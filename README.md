@@ -310,9 +310,6 @@ public interface VoteRepository extends CrudRepository<Vote, Long> {
 
 
 
-
-
-
 -
 # Part 3.2.3 - Modify `VoteController`
 * Create a `getAllVotes` method in the `VoteController`
@@ -325,10 +322,6 @@ public Iterable<Vote> getAllVotes(@PathVariable Long pollId) {
 }
 ```
 
-
-
-
-
 -
 -
 # Part 4 - Data Transfer Object (DTO) Implementation
@@ -337,7 +330,7 @@ public Iterable<Vote> getAllVotes(@PathVariable Long pollId) {
 * Create a sub package of `java` named `dtos`
 
 -
-# Part 4.1 - Create class `OptionCount`
+## Part 4.1 - Create class `OptionCount`
 * The `OptionCount` DTO contains the `ID` of the option and a count of votes casted for that option.
 
 ```java
@@ -363,7 +356,7 @@ public class OptionCount {
 }
 ```
 
-# Part 4.2 - Create class `VoteResult`
+## Part 4.2 - Create class `VoteResult`
 * The `VoteResult` DTO contains the total votes cast and a collection of `OptionCount` instances.
 
 ```java
@@ -391,7 +384,7 @@ public class VoteResult {
 ```
 
 
-# Part 4.3 - Create class `ComputeResultController`
+## Part 4.3 - Create class `ComputeResultController`
 * Following the principles used in creating the `PollController` and `VoteController`, we create a new `ComputeResultController` class
 
 ```java
@@ -417,7 +410,126 @@ public class ComputeResultController {
 * The computed results are sent to the client using a newly created instance of `ResponseEntity`.
 
 
-# Part 4.4 - Test via Postman
+## Part 4.4 - Test via Postman
 * Start/restart the `QuickPoll` application.
 * Using the earlier Postman requests, create a poll and cast votes on its options.
 * Ensure a JSON file with a `status` of `200` is returned by executing a `GET` request of `http://localhost:8080/computeresults?pollId=1` via Postman
+
+
+# Part 5 - Error Handling
+
+## Part 5.1 - Create `ResourceNotFoundException`
+
+- Create a `exception` package inside of `io.zipcoder.springdemo.QuickPollApplication`
+- Create a `ResourceNotFoundException` class that extends `RuntimeException`. We'll use this to signal when a requested resource is not found.
+- Annotate the `ResourceNotFoundException` class with `@ResponseStatus(HttpStatus.NOT_FOUND)`. This informs Spring that any request mapping that throws a `ResourceNotFoundException` should result in a `404 NOT FOUND` http status.
+- Implement three constructors
+  -  A no-arg constructor
+  -  A constructor that takes a `String message` and passes it to the superclass constructor
+  -  A constructor that takes `String message` and `Throwable cause` and passes both to the superclass constructor
+
+
+## Part 5.2 - Verify polls
+
+Create a void method in `PollController` called `verifyPoll` that checks if a specific poll id exists and throws a `ResourceNotFoundException` if not. Use this in any method that searches for or updates an existing poll (eg: Get, Put, and Delete methods).
+
+**Note**: This means that trying to submit a PUT request for a resource that doesn't exist will not implicitly create it; it should throw a 404 instead.
+
+## Part 5.3 - Create custom Error Responses
+
+Spring provides some built-in exception handling and error response, but we'll customize it a bit here. Create an `ErrorDetail` class in a new `io.zipcoder.tc_spring_poll_application.dto.error` package to hold relevant information any time an error occurs.
+
+Fields (Don't forget to provide getters and setters):
+
+- `String title`: a brief title of the error condition, eg: "Validation Failure" or "Internal Server Error"
+- `int status`: the HTTP status code for the current request; redundant but useful for client-side error handling
+- `String detail`: A short, human-readable description of the error that may be presented to a user
+- `long timeStamp`: the time in milliseconds when the error occurred
+- `String developerMessage`: detailed information such as exception class name or a stack trace useful for developers to debug
+
+
+## Part 5.4 - Create a `@ControllerAdvice`
+
+In this section we add custom handling for the exceptions we created before. A `@ControllerAdvice` is an AOP feature that wraps a controller and adds some functionality when needed. In this case we are adding functionality only when an exception is thrown.
+
+- Create RestExceptionHandler class annotated with `@ControllerAdvice`
+- Create a handler method with the header shown below
+- Populate an ErrorDetail object in the method, and return a ResponseEntity containing the ErrorDetail and an HTTP `NOT_FOUND` status
+  - Use java.util's `new Date().getTime()` for the timestamp
+  - Provide the detail and developer messages from the `ResourceNotFoundException`
+
+```
+@ExceptionHandler(ResourceNotFoundException.class)public ResponseEntity<?> handleResourceNotFoundException(ResourceNotFoundException rnfe, HttpServletRequest request) {...}
+```
+
+
+
+## Part 5.4 - Validating domain entities
+
+Now it's time to make sure that all objects persisted to the database actually contain valid values. Use the `org.hibernate.validator.constraints.NotEmpty` and `javax.validation.constraints.Size` and `javax.validation.Valid` annotations for validation.
+
+- In the `Poll` class:
+  - `options` should be `@Size(min=2, max = 6)`
+  - `question` should be `@NotEmpty`
+- To enforce these validations, add `@Valid` annotations to Poll objects in `RequestMapping`-annotated controller methods (there should be 2)
+
+## Part 5.5 - Customizing validation errors
+
+In order to customize validation errors we'll need a class for error information. Create a `ValidationError` class in `io.zipcoder.tc_spring_poll_application.dto.error` with the following fields and appropriate getters and setters:
+
+- `String code`
+- `String message`
+
+We also need a new field in the `ErrorDetail` class to hold errors. There may be multiple validation errors associated with a request, sometimes more than one of the same type, so this field will be a collection, specifically a `Map<String, List<ValidationError>> errors` field.
+
+
+## Part 5.6 - Create a validation error handler
+
+- add below handler to `RestExceptionHandler`
+
+```
+@ExceptionHandler(MethodArgumentNotValidException.class)
+public ResponseEntity<?>
+handleValidationError(  MethodArgumentNotValidException manve,
+						HttpServletRequest request){...}
+```
+
+In this handler we need to do the following:
+
+- Create the ErrorDetail object (similar to before)
+- Get the list of field validation errors
+- For each field error, add it to the appropriate list in the ErrorDetail (see below)
+- Return a `ResponseEntity` containing the error detail and the appropriate HTTP status code (`400 Bad Request`)
+
+```
+List<FieldError> fieldErrors =  manve.getBindingResult().getFieldErrors();
+		for(FieldError fe : fieldErrors) {
+			
+			List<ValidationError> validationErrorList = errorDetail.getErrors().get(fe.getField());
+			if(validationErrorList == null) {
+				validationErrorList = new ArrayList<>();
+				errorDetail.getErrors().put(fe.getField(), validationErrorList);
+			}
+			ValidationError validationError = new ValidationError();
+			validationError.setCode(fe.getCode());
+			validationError.setMessage(messageSource.getMessage(fe, null));
+			validationErrorList.add(validationError);
+		}
+```
+
+## Part 5.7 - Externalize strings in a messages.properties file
+
+Commonly used strings in your Java program can be removed from the source code and placed in a separate file. This is called externalizing, and is useful for allowing changes to text displayed without impacting actual program logic. One example of where this is done is in internationalization, the practice of providing multilingual support in an application, allowing users to use an application in their native language.
+
+There are two steps needed here to externalize and standardize the validation error messages:
+
+- Create a `messages.properties` file in the `src/main/resources` directory with the given properties below
+- Use an autowired `MessageSource` in the `RestExceptionHandler` to set the message on ValidationError objects (ie: `setMessage(messageSource.getMessage(fe,null));` )
+
+**`messages.properties` content**:
+
+```
+NotEmpty.poll.question=Question is a required field
+Size.poll.options=Options must be greater than {2} and less than {1}
+```
+
