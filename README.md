@@ -1,4 +1,3 @@
--
 # Pagination
 * To optimize performance, it is important to limit the amount of data returned, especially in the case of a mobile client.
 * REST services have the ability to give clients access large datasets in manageable chunks, by splitting the data into discrete pages or _paging data_. 
@@ -44,7 +43,7 @@
 -
 # Taking Action!
 
-0. Create a `src/main/resource/import.sql` file with [DML statements](http://lmgtfy.com/?q=DML+statement) for populating the database upon bootstrap. The `import.sql` should insert at least 10 polls, each with 3 or more options.
+1. Create a `src/main/resource/import.sql` file with [DML statements](http://lmgtfy.com/?q=DML+statement) for populating the database upon bootstrap. The `import.sql` should insert at least 10 polls, each with 3 or more options.
 	* Below is an example of `SQL` statements for creating a single poll with only one option.
 	
 		* Poll Creation
@@ -58,9 +57,9 @@
 			insert into option (option_id, option_value, poll_id) values (1, 'Red', 1);
 			``` 
 	
-0. Restart your application.
-* Ensure database is populated by `import.sql`.
-* Utilize Spring's built-in page number pagination support by researching the `PagingAndSortingRepository` class.
-* Ensure the `Controller` methods handle `Pageable` arguments.
-* Send a `GET` request to `http://localhost:8080/polls?page=0&size=2` via Postman.
+2. Restart your application.
+3. Ensure database is populated by `import.sql`.
+4. Utilize Spring's built-in page number pagination support by researching the `PagingAndSortingRepository` class.
+5. Ensure the `Controller` methods handle `Pageable` arguments.
+6. Send a `GET` request to `http://localhost:8080/polls?page=0&size=2` via Postman.
 	* Ensure the response is a `JSON` object with pagination-specific information.
