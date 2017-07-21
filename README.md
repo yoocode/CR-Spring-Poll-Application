@@ -1,4 +1,4 @@
-# Pagination
+# Part 6 - Pagination
 * To optimize performance, it is important to limit the amount of data returned, especially in the case of a mobile client.
 * REST services have the ability to give clients access large datasets in manageable chunks, by splitting the data into discrete pages or _paging data_. 
 * For this lab, we will approach this by implementing the _page number pagination pattern_.
@@ -41,9 +41,9 @@
 
 
 -
-# Taking Action!
+# Part 6.1 - Load Dummy Poll Data
 
-1. Create a `src/main/resource/import.sql` file with [DML statements](http://lmgtfy.com/?q=DML+statement) for populating the database upon bootstrap. The `import.sql` should insert at least 10 polls, each with 3 or more options.
+* Create a `src/main/resource/import.sql` file with [DML statements](http://lmgtfy.com/?q=DML+statement) for populating the database upon bootstrap. The `import.sql` should insert at least 15 polls, each with 3 or more options.
 	* Below is an example of `SQL` statements for creating a single poll with only one option.
 	
 		* Poll Creation
@@ -57,9 +57,12 @@
 			insert into option (option_id, option_value, poll_id) values (1, 'Red', 1);
 			``` 
 	
-2. Restart your application.
-3. Ensure database is populated by `import.sql`.
-4. Utilize Spring's built-in page number pagination support by researching the `PagingAndSortingRepository` class.
-5. Ensure the `Controller` methods handle `Pageable` arguments.
-6. Send a `GET` request to `http://localhost:8080/polls?page=0&size=2` via Postman.
+* Restart your application.
+* Use Postman to ensure database is populated by `import.sql`.
+
+
+# Part 6.2 - Spring's Built-in Pagination
+* Make use of Spring's built-in page number pagination support by researching `org.springframework.data.repository.PagingAndSortingRepository`.
+* Modify respective `Controller` methods to handle `Pageable` arguments.
+* Send a `GET` request to `http://localhost:8080/polls?page=0&size=2` via Postman.
 	* Ensure the response is a `JSON` object with pagination-specific information.
