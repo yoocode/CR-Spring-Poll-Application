@@ -459,7 +459,8 @@ In this section we add custom handling for the exceptions we created before. A `
   - Provide the detail and developer messages from the `ResourceNotFoundException`
 
 ```
-@ExceptionHandler(ResourceNotFoundException.class)public ResponseEntity<?> handleResourceNotFoundException(ResourceNotFoundException rnfe, HttpServletRequest request) {...}
+@ExceptionHandler(ResourceNotFoundException.class)
+public ResponseEntity<?> handleResourceNotFoundException(ResourceNotFoundException rnfe, HttpServletRequest request) {...}
 ```
 
 
@@ -533,3 +534,69 @@ NotEmpty.poll.question=Question is a required field
 Size.poll.options=Options must be greater than {2} and less than {1}
 ```
 
+
+
+# Part 6 - Pagination
+* To optimize performance, it is important to limit the amount of data returned, especially in the case of a mobile client.
+* REST services have the ability to give clients access large datasets in manageable chunks, by splitting the data into discrete pages or _paging data_. 
+* For this lab, we will approach this by implementing the _page number pagination pattern_.
+
+-
+### Get Data From Page 
+* For example, a client wanting a blog post in page 3 of a hypothetical blog service can use a `GET` method resembling the following:
+`http://blog.example.com/posts?page=3`
+
+-
+### Limit Data Retrieved From Page
+* It is possible for the client to override the default page size by passing in a page-size parameter:
+`http://blog.example.com/posts?page=3&size=20`
+
+-
+### Pagination Data
+* Pagination-specific information includes
+	* total number of records
+	* total number of pages
+	* current page number
+	* page size
+* In the above blog-scenario, one would expect a response body with pagination information closely resembling the `JSON` object below.
+
+```JSON
+{
+"data": [
+         ... Blog Data
+    ],
+    "totalPages": 9,
+    "currentPageNumber": 2,
+    "pageSize": 10,
+    "totalRecords": 90
+}
+```
+* Read more about REST pagination in Spring by clicking [here](https://dzone.com/articles/rest-pagination-spring).
+
+
+-
+## Part 6.1 - Load Dummy Poll Data
+
+* Create a `src/main/resource/import.sql` file with _DML statements_ for populating the database upon bootstrap. The `import.sql` should insert at least 15 polls, each with 3 or more options.
+	* Below is an example of `SQL` statements for creating a single poll with only one option.
+	
+		* Poll Creation
+		
+			```sql
+			insert into poll (poll_id, question) values (1, 'What is your favorite color?');
+			```
+		* Option Creation
+	
+			```sql
+			insert into option (option_id, option_value, poll_id) values (1, 'Red', 1);
+			``` 
+	
+* Restart your application.
+* Use Postman to ensure database is populated by `import.sql`.
+
+-
+## Part 6.2 - Spring's Built-in Pagination
+* Make use of Spring's built-in page number pagination support by researching `org.springframework.data.repository.PagingAndSortingRepository`.
+* Modify respective `Controller` methods to handle `Pageable` arguments.
+* Send a `GET` request to `http://localhost:8080/polls?page=0&size=2` via Postman.
+* Ensure the response is a `JSON` object with pagination-specific information.
