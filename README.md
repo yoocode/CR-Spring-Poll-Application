@@ -56,7 +56,7 @@
 * Restart your application.
 * Use Postman to ensure database is populated by `import.sql`.
 
-
+-
 # Part 6.2 - Spring's Built-in Pagination
 * Make use of Spring's built-in page number pagination support by researching `org.springframework.data.repository.PagingAndSortingRepository`.
 * Modify respective `Controller` methods to handle `Pageable` arguments.
