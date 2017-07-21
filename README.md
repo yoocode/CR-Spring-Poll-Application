@@ -15,16 +15,13 @@
 `http://blog.example.com/posts?page=3&size=20`
 
 -
-### Pagination Specific Information
+### Pagination Data
 * Pagination-specific information includes
 	* total number of records
 	* total number of pages
 	* current page number
 	* page size
-
--
-### Pagination Data
-* In the above scenario, one would expect a response body with pagination infromation closely resembling the `JSON` object below.
+* In the above scenario, one would expect a response body with pagination information closely resembling the `JSON` object below.
 
 ```JSON
 {
