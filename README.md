@@ -5,7 +5,6 @@
 
 -
 ### Get Data From Page 
-
 * For example, a client wanting a blog post in page 3 of a hypothetical blog service can use a `GET` method resembling the following:
 `http://blog.example.com/posts?page=3`
 
@@ -62,4 +61,4 @@
 * Make use of Spring's built-in page number pagination support by researching `org.springframework.data.repository.PagingAndSortingRepository`.
 * Modify respective `Controller` methods to handle `Pageable` arguments.
 * Send a `GET` request to `http://localhost:8080/polls?page=0&size=2` via Postman.
-	* Ensure the response is a `JSON` object with pagination-specific information.
+* Ensure the response is a `JSON` object with pagination-specific information.
