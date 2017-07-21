@@ -234,7 +234,7 @@ public ResponseEntity<?> deletePoll(@PathVariable Long pollId) {
 -
 ### Part 3.1.8 - Test
 * Restart the QuickPoll application.
-* Use Postman to execute a `PUT` to `http://localhost:8080/polls/1` whose request body is the `JSON` object below.
+* Use Postman to execute a `POST` to `http://localhost:8080/polls/1` whose request body is the `JSON` object below.
 * You can modify the request body in Postman by navigating to the `Body` tab, selecting the `raw` radio button, and selecting the `JSON` option from the text format dropdown.
 
 ```JSON
@@ -242,10 +242,10 @@ public ResponseEntity<?> deletePoll(@PathVariable Long pollId) {
     "id": 1,
         "question": "What's the best netflix original?",
         "options": [
-	    { "id": 1, "value": "Black Mirror" },
-	    { "id": 2, "value": "Stranger Things" },
-	    { "id": 3, "value": "Orange is the New Black"},
-	    { "id": 4, "value": "The Get Down" }
+	    { "value": "Black Mirror" },
+	    { "value": "Stranger Things" },
+	    { "value": "Orange is the New Black"},
+	    { "value": "The Get Down" }
 	]
 }
 ```
