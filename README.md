@@ -400,7 +400,7 @@ public class ComputeResultController {
 
 * Start/restart the `QuickPoll` application.
 * Using the earlier Postman requests, create a poll and cast votes on its options.
-* Ensure a JSON file with a `status` of `200` is returned by executing a `GET` request of `http://localhost:8080/computeresults?pollId=1` via Postman
+* Ensure a JSON file with a `status` of `200` is returned by executing a `GET` request of `http://localhost:8080/computeresult?pollId=1` via Postman
 
 
 # Part 5 - Error Handling
