@@ -398,7 +398,7 @@ public class ComputeResultController {
         VoteResult voteResult = new VoteResult();
         Iterable<Vote> allVotes = voteRepository.findVotesByPoll(pollId);
 
-        // Algorithm to count votes
+        //TODO: Implement algorithm to count votes
         return new ResponseEntity<VoteResult>(voteResult, HttpStatus.OK);
     }
 ```
@@ -525,7 +525,10 @@ Commonly used strings in your Java program can be removed from the source code a
 There are two steps needed here to externalize and standardize the validation error messages:
 
 - Create a `messages.properties` file in the `src/main/resources` directory with the given properties below
-- Use an autowired `MessageSource` in the `RestExceptionHandler` to set the message on ValidationError objects (ie: `setMessage(messageSource.getMessage(fe,null));` )
+  - `messages.properties` is a key-value file stored in plain text. Your IDE may have a table-based view or show the contents as text
+  - `.properties` files are a common idiom in Java applications; they contain additional information the application uses that doesn't impact the actual source code.
+- Use an autowired `MessageSource` object in the `RestExceptionHandler` to set the message on ValidationError objects (ie: `setMessage(messageSource.getMessage(fe,null));` )
+  - This object will be autowired (or injected) the same way your `CRUDRepository` instances are.
 
 **`messages.properties` content**:
 
