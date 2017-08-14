@@ -491,18 +491,18 @@ In this handler we need to do the following:
 
 ```java
 List<FieldError> fieldErrors =  manve.getBindingResult().getFieldErrors();
-		for(FieldError fe : fieldErrors) {
-			
-			List<ValidationError> validationErrorList = errorDetail.getErrors().get(fe.getField());
-			if(validationErrorList == null) {
-				validationErrorList = new ArrayList<>();
-				errorDetail.getErrors().put(fe.getField(), validationErrorList);
-			}
-			ValidationError validationError = new ValidationError();
-			validationError.setCode(fe.getCode());
-			validationError.setMessage(messageSource.getMessage(fe, null));
-			validationErrorList.add(validationError);
-		}
+for(FieldError fe : fieldErrors) {
+
+	List<ValidationError> validationErrorList = errorDetail.getErrors().get(fe.getField());
+	if(validationErrorList == null) {
+		validationErrorList = new ArrayList<>();
+		errorDetail.getErrors().put(fe.getField(), validationErrorList);
+	}
+	ValidationError validationError = new ValidationError();
+	validationError.setCode(fe.getCode());
+	validationError.setMessage(messageSource.getMessage(fe, null));
+	validationErrorList.add(validationError);
+}
 ```
 
 ## Part 5.7 - Externalize strings in a messages.properties file
