@@ -193,7 +193,7 @@ public ResponseEntity<?> getPoll(@PathVariable Long pollId) {
 * The code snippet below enables us to update a poll.
 
 ```java
-RequestMapping(value="/polls/{pollId}", method=RequestMethod.PUT)
+@RequestMapping(value="/polls/{pollId}", method=RequestMethod.PUT)
 public ResponseEntity<?> updatePoll(@RequestBody Poll poll, @PathVariable Long pollId) {
         // Save the entity
         Poll p = pollRepository.save(poll);
