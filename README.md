@@ -445,7 +445,7 @@ In this section we add custom handling for the exceptions we created before. A `
   - Use java.util's `new Date().getTime()` for the timestamp
   - Provide the detail and developer messages from the `ResourceNotFoundException`
 
-```
+```java
 @ExceptionHandler(ResourceNotFoundException.class)
 public ResponseEntity<?> handleResourceNotFoundException(ResourceNotFoundException rnfe, HttpServletRequest request) {...}
 ```
@@ -475,7 +475,7 @@ We also need a new field in the `ErrorDetail` class to hold errors. There may be
 
 - add below handler to `RestExceptionHandler`
 
-```
+```java
 @ExceptionHandler(MethodArgumentNotValidException.class)
 public ResponseEntity<?>
 handleValidationError(  MethodArgumentNotValidException manve,
@@ -489,7 +489,7 @@ In this handler we need to do the following:
 - For each field error, add it to the appropriate list in the ErrorDetail (see below)
 - Return a `ResponseEntity` containing the error detail and the appropriate HTTP status code (`400 Bad Request`)
 
-```
+```java
 List<FieldError> fieldErrors =  manve.getBindingResult().getFieldErrors();
 		for(FieldError fe : fieldErrors) {
 			
