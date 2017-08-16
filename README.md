@@ -78,19 +78,19 @@
 ## Part 2.1 - Create interface `OptionRepository`
 
 * Create an `OptionRepository` interface in the `repositories` subpackage.
-* `OptionRepository` extends `CrudRepository<Option, Long>`
+* `OptionRepository` is a subclass of `CrudRepository<Option, Long>`
 
 
 ## Part 2.2 - Create interface `PollRepository`
 
 * Create a `PollRepository` interface in the `repositories` subpackage.
-* `PollRepository` extends `CrudRepository<Poll, Long>`
+* `PollRepository` is a subclass of `CrudRepository<Poll, Long>`
 
 
 ## Part 2.3 - Create interface `VoteRepository`
 
 * Create a `VoteRepository` interface in the `repositories` subpackage.
-* `VoteRepository` extends `CrudRepository<Vote, Long>`
+* `VoteRepository` is a subclass of `CrudRepository<Vote, Long>`
 
 # Part 3 - Controller Implementation
 
