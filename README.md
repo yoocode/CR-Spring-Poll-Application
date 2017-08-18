@@ -1,4 +1,8 @@
-
+# Poll Application
+* **Lab Author** - Leon Hunter
+* **Purpose**
+	* to demonstrate the basic functionality of the [Spring Framework](https://spring.io/)
+	* to demonstrate API testing via [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en)
 
 # Part 1 - Domain Implementation
 
