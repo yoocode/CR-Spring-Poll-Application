@@ -1,5 +1,4 @@
 # Poll Application
-* **Lab Author** - Leon Hunter, David Ginzberg
 * **Purpose**
 	* to demonstrate the basic functionality of the [Spring Framework](https://spring.io/)
 	* to demonstrate API testing via [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en)
